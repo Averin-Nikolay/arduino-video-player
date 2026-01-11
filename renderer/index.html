@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arduino Video Player</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    #media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    /* ===== OVERLAYS ===== */
+
+    .overlay {
+      position: fixed;
+      padding: 12px 20px;
+      background: rgba(0, 0, 0, 0.85);
+      color: #0f0;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 14px;
+      border-radius: 8px;
+      z-index: 1000;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #status {
+      top: 20px;
+      right: 20px;
+      font-weight: bold;
+      text-shadow: 0 0 10px currentColor;
+    }
+
+    #debug {
+      bottom: 20px;
+      left: 20px;
+      color: #fff;
+      max-width: 420px;
+      line-height: 1.6;
+    }
+
+    #debug > div {
+      margin: 6px 0;
+    }
+
+    /* ===== OVERLAY GROUP ===== */
+
+    #overlay-group {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    #overlay-group.hidden {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+
+    <video
+      id="media"
+      tabindex="-1"
+      playsinline
+      preload="auto"
+    ></video>
+
+    <!-- ЕДИНАЯ ГРУППА ОВЕРЛЕЕВ -->
+    <div id="overlay-group" class="hidden">
+      <div id="status" class="overlay">
+        Arduino: подключение...
+      </div>
+
+      <div id="debug" class="overlay">
+        Загрузка...
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
